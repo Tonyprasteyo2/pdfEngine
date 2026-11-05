@@ -59,12 +59,6 @@ Contributions are welcome!
 
 Please refer to the repository for license information.
 
-## Author
-
-**Tony Prasetyo**
-
-GitHub: [@Tonyprasteyo2](https://github.com/Tonyprasteyo2)
-
 ---
 
 If you find this project useful, consider giving it a ⭐ on GitHub!
