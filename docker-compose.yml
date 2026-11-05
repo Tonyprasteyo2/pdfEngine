@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  pdf-service:
+    build: .
+    container_name: simrs-pdf-service
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - API_KEY=${API_KEY:-change-me-in-production}
+      - PDF_MAX_UPLOAD_MB=50
+      - PDF_MAX_FILES=30
+      - PDF_RETENTION_MINUTES=60
+    volumes:
+      - pdf_storage:/app/storage
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  pdf_storage:

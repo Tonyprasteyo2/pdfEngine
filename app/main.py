@@ -1,0 +1,47 @@
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.config import get_settings
+from app.routers import health, pdf
+from app.utils.logging import logger
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    settings = get_settings()
+    settings.ensure_dirs()
+    logger.info(f"Starting {settings.app_name} v{settings.app_version}")
+    yield
+    logger.info("Shutting down")
+
+
+def create_app() -> FastAPI:
+    settings = get_settings()
+    app = FastAPI(
+        title="SIMRS PDF KannaCloud",
+        description="KannaCloud",
+        lifespan=lifespan,
+        docs_url="/docs",
+        redoc_url="/redoc",
+        swagger_ui_parameters={
+            "defaultModelsExpandDepth": -1,
+        },
+    )
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    app.include_router(health.router, prefix="/api/v1")
+    app.include_router(pdf.router, prefix="/api/v1")
+
+    return app
+
+
+app = create_app()
