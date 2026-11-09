@@ -1,64 +1,110 @@
 # pdfEngine
 
-A PDF Engine project designed to simplify PDF document generation and management.
+Layanan **PDF Engine** berbasis Python untuk membuat dan mengelola dokumen PDF, lengkap dengan dukungan Docker agar mudah dijalankan di environment mana pun.
 
-## Overview
+> ⚠️ Catatan: bagian yang bertanda `TODO` perlu disesuaikan dengan implementasi aktual di kode (nama framework, endpoint, variabel environment, dll).
 
-**pdfEngine** is a project focused on providing PDF-related functionality through a reusable and structured implementation. It aims to make PDF processing easier to integrate into applications and development workflows.
+## Fitur
 
-## Features
+- Pembuatan dokumen PDF secara terstruktur
+- Penyimpanan hasil file di folder `storage/`
+- Konfigurasi lewat environment variable (`.env`)
+- Siap dijalankan dengan Docker & Docker Compose
+- Dilengkapi folder `tests/` untuk pengujian
 
-- PDF document generation.
-- Structured PDF processing.
-- Reusable implementation.
-- Easy integration into application projects.
+## Struktur Proyek
 
-*Note: Features should be adjusted to match the actual implementation.*
+```
+pdfEngine/
+├── app/                 # Kode utama aplikasi
+├── storage/             # Penyimpanan file PDF (input/output)
+├── tests/               # Unit test
+├── .env.example         # Contoh konfigurasi environment
+├── .gitignore
+├── Dockerfile           # Image Docker aplikasi
+├── docker-compose.yml   # Orkestrasi container
+├── requirements.txt     # Dependensi Python
+└── README.md
+```
 
-## Repository
+## Prasyarat
 
-GitHub: [Tonyprasteyo2/pdfEngine](https://github.com/Tonyprasteyo2/pdfEngine)
+- Python 3.10+ (jika dijalankan tanpa Docker)
+- [Docker](https://docs.docker.com/get-docker/) & Docker Compose (opsional, direkomendasikan)
 
-## Getting Started
+## Instalasi
 
-### 1. Clone the Repository
+### 1. Clone repository
 
 ```bash
 git clone https://github.com/Tonyprasteyo2/pdfEngine.git
-```
-
-### 2. Navigate to the Project Directory
-
-```bash
 cd pdfEngine
 ```
 
-### 3. Install Dependencies
+### 2. Siapkan environment
 
-Install the dependencies according to the package manager and configuration used by this project.
+```bash
+cp .env.example .env
+```
 
-## Usage
+Lalu sesuaikan nilai di dalam `.env`.
 
-Refer to the source code and available examples in the repository for implementation details.
+### 3a. Jalankan dengan Docker (direkomendasikan)
 
-## Project Structure
+```bash
+docker compose up --build
+```
 
-The project structure is organized to separate its core functionality, supporting components, and configuration files.
+### 3b. Jalankan secara lokal
 
-## Contributing
+```bash
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-Contributions are welcome!
+Jalankan aplikasi:
 
-1. Fork this repository.
-2. Create a new branch.
-3. Make your changes.
-4. Commit your changes.
-5. Submit a Pull Request.
+```bash
+# TODO: sesuaikan dengan entry point proyek, contoh:
+# uvicorn app.main:app --reload
+```
 
-## License
+## Konfigurasi
 
-Please refer to the repository for license information.
+Semua konfigurasi diatur lewat file `.env`. Lihat `.env.example` untuk daftar variabel yang tersedia.
+
+| Variabel | Deskripsi |
+|----------|-----------|
+| `TODO`   | Isi sesuai isi `.env.example` |
+
+## Penggunaan
+
+```bash
+# TODO: tambahkan contoh pemakaian, misalnya request ke endpoint:
+# curl -X POST http://localhost:8000/generate -H "Content-Type: application/json" -d '{...}'
+```
+
+File hasil akan tersimpan di folder `storage/`.
+
+## Testing
+
+```bash
+pip install pytest
+pytest tests/
+```
+
+## Kontribusi
+
+Kontribusi sangat diterima!
+
+1. Fork repository ini
+2. Buat branch baru: `git checkout -b fitur-baru`
+3. Commit perubahan: `git commit -m "Tambah fitur baru"`
+4. Push ke branch: `git push origin fitur-baru`
+5. Buat Pull Request
+
 
 ---
 
-If you find this project useful, consider giving it a ⭐ on GitHub!
+Jika proyek ini bermanfaat, jangan lupa beri ⭐ di GitHub!
